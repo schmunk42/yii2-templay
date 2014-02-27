@@ -1,0 +1,18 @@
+{
+    "name": "schmunk42/yii2-templay",
+    "description": "Template toolkit for Yii Framework 2",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","prado","view","renderer"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Tobias Munk",
+            "email": "schmunk@usrbin.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "schmunk42\\templay\\": ""
+        }
+    }
+}
