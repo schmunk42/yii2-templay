@@ -1,5 +1,8 @@
 Templay
 =======
+
+** THIS IS A DEVELOPMENT VERSION - DO NOT USE IT FOR PRODUCTION **
+
 Template toolkit for Yii Framework 2
 
 Installation
@@ -25,7 +28,48 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+Once the extension is installed, you can render standard HTML pages with "ye-olde PRADO-style" `ViewRenderer`:
 
-```php
-<?= \schmunk42\templay\AutoloadExample::widget(); ?>```
+    'view'         => [
+        'renderers' => [
+            'html' => [
+                'class' => 'schmunk42\templay\ViewRenderer',
+            ],
+        ],
+    ],
+
+Templay allows you to keep your HTML-templates fully intact. To still use a complete template as a view you have
+to add two widgets to tell Yii which part it has to render from the current page.
+
+    <com:Html>
+
+        /* this part will be ignored */
+
+        <com:Content>
+
+            /* we'll just render this part */
+
+            <div class="container">
+                This is the content of your page.
+            </div>
+
+        </com:Content>
+
+        /* this part will be ignored */
+
+    <com:Html>
+
+In order to create dynamic sections from a static HTML page you can add the `Template` widget, and mark the editable
+tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by [PHPTAL](phptal.org).
+
+    <com:Template id="col-12" description="Full width template">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h2 content="model/headline" tpy:content="model/headline">12 Columns</h2>
+                <p tpy:content="model/content" tpy:input="textarea">Sed tempus dignissim [...]</p>
+                <a tpy:attributes="href model/href; title model/link_title"
+                   tpy:content="model/link_text">I am a Link!</a>
+            </div>
+        </div>
+    </com:Template>
+
