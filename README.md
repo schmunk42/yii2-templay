@@ -62,6 +62,8 @@ to add two widgets to tell Yii which part it has to render from the current page
 In order to create dynamic sections from a static HTML page you can add the `Template` widget, and mark the editable
 tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by [PHPTAL](phptal.org).
 
+### Template widget in PRADO-style syntax
+
     <com:Template id="col-12" description="Full width template">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -73,3 +75,28 @@ tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by 
         </div>
     </com:Template>
 
+### Template widget in PHP-style syntax
+
+```php
+<div class="col-lg-4">
+    
+    <?php \schmunk42\templay\Template::begin() ?>
+    
+    <h2 tpy:content="model/headline">Heading</h2>
+
+    <p tpy:content="model/text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+        et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu
+        fugiat nulla pariatur.</p>
+
+    <p><a tpy:content="model/link_tect"
+          tpy:attributes="href model/url"
+          class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+    
+    <?php \schmunk42\templay\Template::end() ?>
+    
+</div>
+```
