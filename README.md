@@ -65,6 +65,7 @@ tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by 
 ### Template widget in PRADO-style syntax
 
     <com:Template id="col-12" description="Full width template">
+    
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <h2 content="model/headline" tpy:content="model/headline">12 Columns</h2>
@@ -73,6 +74,7 @@ tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by 
                    tpy:content="model/link_text">I am a Link!</a>
             </div>
         </div>
+        
     </com:Template>
 
 ### Template widget in PHP-style syntax
@@ -83,7 +85,6 @@ tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by 
     <?php \schmunk42\templay\Template::begin() ?>
     
     <h2 tpy:content="model/headline">Heading</h2>
-
     <p tpy:content="model/text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
         et
         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -91,7 +92,6 @@ tags with `tpy:content` or `tpy:attributes` markers. This syntax is inspired by 
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
         dolore eu
         fugiat nulla pariatur.</p>
-
     <p><a tpy:content="model/link_tect"
           tpy:attributes="href model/url"
           class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
