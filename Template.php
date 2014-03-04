@@ -45,7 +45,7 @@ class Template extends \yii\base\Widget
     public function run()
     {
         $params            = $this->params;
-        $params['content'] = $this->_content = ob_get_clean();
+        $params['content'] = $this->_content = html_entity_decode(ob_get_clean());
         $params['id']      = $this->id;
         $params['model']   = new \yii\base\DynamicModel($this->extractTemplateAttributes());
 
