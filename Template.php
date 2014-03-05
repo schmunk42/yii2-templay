@@ -9,6 +9,8 @@
 namespace schmunk42\templay;
 
 
+use schmunk42\templay\models\Data;
+
 class Template extends \yii\base\Widget
 {
 
@@ -45,12 +47,19 @@ class Template extends \yii\base\Widget
     public function run()
     {
         $params            = $this->params;
-        $params['content'] = $this->_content = html_entity_decode(ob_get_clean());
+
+        $this->_content = html_entity_decode(ob_get_clean());
+        #$this->_content = $this->process($this->_content);
+        $params['content'] = $this->_content;
+
         $params['id']      = $this->id;
         $params['model']   = new \yii\base\DynamicModel($this->extractTemplateAttributes());
 
+
+
         // render under the existing context
         echo $this->view->renderFile($this->viewFile, $params);
+
     }
 
     /**
@@ -69,7 +78,7 @@ class Template extends \yii\base\Widget
             // get all tpy: attributes
             $tpyAttributes = $element->attributes('tpy', true);
             if (isset($tpyAttributes['content'])) {
-                $model = $this->getData();
+                $model = Data::find(['id'=>28]);
                 list($var, $value) = explode('/', $tpyAttributes['content']);
                 $element->{0} = isset($$var->$value) ? $$var->$value : 'NOT DEFINED';
             }

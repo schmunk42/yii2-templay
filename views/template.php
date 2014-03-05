@@ -9,6 +9,10 @@
     );
     ?>
     <div id="<?= $panelId ?>" class="panel panel-default">
+        <?php \yii\widgets\ActiveForm::begin() ?>
+
+        <?= \yii\helpers\Html::hiddenInput('tid', $id) ?>
+
         <div class="panel-heading">
             <button type="button" class="close" data-dismiss="panel" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">Edit
@@ -16,7 +20,7 @@
             </h4>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" role="form">
+
                 <?php foreach ($model->attributes AS $attribute => $value): ?>
                     <div class="form-group">
                         <label for="<?= $attribute ?>" class="col-sm-2 control-label">
@@ -24,17 +28,17 @@
                         </label>
 
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="<?= $attribute ?>"
-                                   placeholder="<?= $attribute ?>">
+                            <?= \yii\helpers\Html::textInput($attribute) ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </form>
+
         </div>
         <div class="panel-footer text-center">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary">Save</button>
         </div>
+        <?php \yii\widgets\ActiveForm::end() ?>
     </div>
     <?php
     \yii\jui\Draggable::end();
