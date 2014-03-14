@@ -10,7 +10,7 @@ $(".tpy-template").each(function () {
         console.log($form);
         console.log($form.serialize());
         $.ajax({
-            url: '?r=templay/data/save',
+            url: '?r=templay/template/save',
             type: 'post',
             data: $form.serialize(),
             //dataType: data.settings.ajaxDataType,

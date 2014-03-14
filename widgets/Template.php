@@ -6,10 +6,10 @@
  * Time: 01:07
  */
 
-namespace schmunk42\templay;
+namespace schmunk42\templay\widgets;
 
 
-use schmunk42\templay\models\Data;
+use schmunk42\templay\models\Template as Model;
 
 class Template extends \yii\base\Widget
 {
@@ -48,8 +48,8 @@ class Template extends \yii\base\Widget
     {
         $params            = $this->params;
 
+        $this->_content = $this->process($this->_content);
         $this->_content = html_entity_decode(ob_get_clean());
-        #$this->_content = $this->process($this->_content);
         $params['content'] = $this->_content;
 
         $params['id']      = $this->id;
@@ -60,6 +60,12 @@ class Template extends \yii\base\Widget
         // render under the existing context
         echo $this->view->renderFile($this->viewFile, $params);
 
+    }
+
+    private function loadModel(){
+        $model = Model::find(['tid'=>$this->id]);
+        #var_dump($model);
+        return $model;
     }
 
     /**
@@ -73,12 +79,24 @@ class Template extends \yii\base\Widget
     private function process($content)
     {
         $xml    = $this->asSimpleXMLElement();
-        $result = $xml->xpath('//*[@tpy:*]');
+        #$result = $xml->xpath('//*[@tpy:*]');
+        var_dump($xml);
+        $result = $xml->xpath('//h1');
+        #var_dump($xml,$result);
+        $model = $this->loadModel();
+
         foreach ($result as $element) {
+            echo "BBBBBBB";
+            $element->{0} = "xxx";
+
+            $tpy = $element->attributes('tpy', true);
+            #print_r($tpy['attributes']);
+            #echo "111111111";
             // get all tpy: attributes
             $tpyAttributes = $element->attributes('tpy', true);
+            #var_dump($tpyAttributes);
+
             if (isset($tpyAttributes['content'])) {
-                $model = Data::find(['id'=>28]);
                 list($var, $value) = explode('/', $tpyAttributes['content']);
                 $element->{0} = isset($$var->$value) ? $$var->$value : 'NOT DEFINED';
             }
@@ -98,7 +116,6 @@ class Template extends \yii\base\Widget
         $attributes = [];
         foreach ($result as $element) {
             $tpy = $element->attributes('tpy', true);
-
             if (isset($tpy['content'])) {
                 list($key, $value) = explode('/', $tpy['content']);
                 $attributes[] = $value;
@@ -122,7 +139,11 @@ class Template extends \yii\base\Widget
      */
     private function asSimpleXMLElement()
     {
-        $content = "<item xmlns:tpy='http://sphundament.com/xmlns/tpy/1'>" . $this->_content . "</item>";
+        $content = "<?xml version='1.0' encoding='UTF-8'?>";
+        $content .= "<item xmlns:tpy='http://sphundament.com/xmlns/tpy/1'>" . $this->_content . "</item>";
+#echo $content;
+#exit;
+        #$content = $this->_content;
         $xml     = new \SimpleXMLElement($content, 0, false, "tpy", true);
         $xml->registerXPathNamespace('tpy', 'http://phundament.com/xmlns/tpy/1');
         return $xml;

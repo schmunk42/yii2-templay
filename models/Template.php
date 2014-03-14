@@ -13,14 +13,14 @@ namespace schmunk42\templay\models;
  * @property string $tid
  * @property string $data
  */
-class Data extends \yii\db\ActiveRecord
+class Template extends \yii\db\ActiveRecord
 {
 	/**
 	 * @inheritdoc
 	 */
 	public static function tableName()
 	{
-		return 'templay_data';
+		return 'tpy_template';
 	}
 
 	/**

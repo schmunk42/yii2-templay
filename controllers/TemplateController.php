@@ -9,15 +9,14 @@
 namespace schmunk42\templay\controllers;
 
 
-use schmunk42\templay\models\Data;
+use schmunk42\templay\models\Template;
 
-class DataController extends \yii\base\Controller {
+class TemplateController extends \yii\base\Controller {
 
     public function actionSave() {
 
         $data = $_POST;
-
-        $model = new Data();
+        $model = new Template();
         $model->module = null;
         $model->controller = "site";
         $model->action = "static";
